@@ -36,18 +36,14 @@ function Cube({ position, velocity, rotationSpeed }: CubeProps) {
     <mesh ref={ref} position={position} castShadow receiveShadow>
       <boxGeometry args={[1.8, 1.8, 1.8]} />
       <meshPhysicalMaterial
-        transparent={false}
-        opacity={0.9}
-        roughness={0.9}
-        metalness={0.9}
-        transmission={0.05}
-        ior={1.05}
-        clearcoat={0.1}
-        clearcoatRoughness={0.7}
-        reflectivity={0.9}
-        thickness={1.0}
-        specularIntensity={0.3}
-        envMapIntensity={0.6}
+        roughness={0.05}
+        metalness={1.0}
+        reflectivity={1.0}
+        clearcoat={1.0}
+        clearcoatRoughness={0.1}
+        thickness={2.0}
+        specularIntensity={0.9}
+        envMapIntensity={1.2}
         emissive={new THREE.Color(`hsl(${Math.random() * 360}, 60%, 30%)`)}
       />
     </mesh>
@@ -78,16 +74,26 @@ function RotatingCubes() {
   return <>{cubes}</>;
 }
 
+function CinematicCamera() {
+  useFrame(({ clock, camera }) => {
+    const t = clock.getElapsedTime();
+    camera.position.x = Math.sin(t * 0.1) * 15;
+    camera.position.z = Math.cos(t * 0.1) * 15;
+    camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
 export function Background() {
   return (
     <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
       <Canvas camera={{ position: [0, 0, 12], fov: 45 }} shadows>
         <Suspense fallback={null}>
           <SoftShadows size={20} samples={10} focus={0.8} />
-          <ambientLight intensity={0.3} />
+          <ambientLight intensity={1.0} />
           <directionalLight
             position={[5, 10, 5]}
-            intensity={1.5}
+            intensity={2.0}
             castShadow
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
@@ -98,10 +104,15 @@ export function Background() {
             shadow-camera-top={10}
             shadow-camera-bottom={-10}
           />
-          <Environment
-            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/autumn_field_puresky_1k.hdr"
-            background
+          <pointLight position={[-5, 5, 5]} intensity={0.8} color="white" />
+          <spotLight
+            position={[10, -5, -10]}
+            intensity={1.2}
+            angle={0.3}
+            penumbra={0.5}
           />
+          <Environment files="/field.hdr" background />
+          <CinematicCamera />
           <RotatingCubes />
           <OrbitControls />
         </Suspense>

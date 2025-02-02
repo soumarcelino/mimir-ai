@@ -16,7 +16,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="backdrop-blur-[120px] bg-white/0">
+      <Card className="bg-white/0 shadow-[0_25px_45px_rgba(0,0,0,0.2)] border border-white/50 border-r-white/20 border-b-white/20 backdrop-blur-[25px]">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -31,7 +31,7 @@ export function LoginForm({
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="my.email@example.com"
                   required
                   className="bg-white"
                 />
