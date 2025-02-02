@@ -16,7 +16,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+      <Card className="backdrop-blur-[120px] bg-white/0">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -33,11 +33,17 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   required
+                  className="bg-white"
                 />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  className="bg-white"
+                  required
+                />
               </div>
               <Button type="submit" className="w-full">
                 Login
