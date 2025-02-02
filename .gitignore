@@ -10,6 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 
+#config
+.npmrc
+.yarnrc.yml
+
 # testing
 /coverage
 
