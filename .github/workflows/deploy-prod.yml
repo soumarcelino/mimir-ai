@@ -34,7 +34,6 @@ jobs:
           name: nextjs-build
           path: ./out
 
-
   deploy:
     name: Deploy to S3
     runs-on: ubuntu-latest
@@ -54,8 +53,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1" 
+          aws-region: "us-east-1"
 
       # Sincronizar os arquivos com o bucket S3
       - name: Deploy to S3 Bucket
-        run: aws s3 sync ./out s3://mimir-ai-site --delete
+        run: aws s3 sync ./build_artifact s3://mimir-ai-site --delete
