@@ -47,6 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nextjs-build
+          path: ./out
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,4 +58,4 @@ jobs:
 
       # Sincronizar os arquivos com o bucket S3
       - name: Deploy to S3 Bucket
-        run: aws s3 sync * s3://mimir-ai-site --delete
+        run: aws s3 sync ./out s3://mimir-ai-site --delete
