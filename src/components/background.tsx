@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Environment, SoftShadows } from "@react-three/drei";
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 interface CubeProps {
@@ -13,8 +13,9 @@ interface CubeProps {
 
 function Cube({ position, velocity, rotationSpeed }: CubeProps) {
   const ref = useRef<THREE.Mesh>(null);
+  const acceleration = 1.1; // Aceleração ao colidir com as bordas
 
-  useFrame(() => {
+  useFrame(({ size }) => {
     if (ref.current) {
       ref.current.rotation.x += rotationSpeed[0];
       ref.current.rotation.y += rotationSpeed[1];
@@ -24,9 +25,22 @@ function Cube({ position, velocity, rotationSpeed }: CubeProps) {
       position[1] += velocity[1];
       position[2] += velocity[2];
 
-      if (Math.abs(position[0]) > 6) velocity[0] *= -1;
-      if (Math.abs(position[1]) > 6) velocity[1] *= -1;
-      if (Math.abs(position[2]) > 6) velocity[2] *= -1;
+      const boundsX = size.width / 100;
+      const boundsY = size.height / 100;
+      const boundsZ = 6; // Ajuste de profundidade
+
+      if (Math.abs(position[0]) > boundsX) {
+        velocity[0] *= -acceleration;
+        position[0] = Math.sign(position[0]) * boundsX;
+      }
+      if (Math.abs(position[1]) > boundsY) {
+        velocity[1] *= -acceleration;
+        position[1] = Math.sign(position[1]) * boundsY;
+      }
+      if (Math.abs(position[2]) > boundsZ) {
+        velocity[2] *= -acceleration;
+        position[2] = Math.sign(position[2]) * boundsZ;
+      }
 
       ref.current.position.set(...position);
     }
@@ -55,14 +69,14 @@ function RotatingCubes() {
     <Cube
       key={i}
       position={[
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10,
       ]}
       velocity={[
-        (Math.random() - 0.5) * 0.02,
-        (Math.random() - 0.5) * 0.02,
-        (Math.random() - 0.5) * 0.02,
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.1,
       ]}
       rotationSpeed={[
         Math.random() * 0.008 + 0.001,
