@@ -93,6 +93,11 @@ jobs:
             LAST_TAG=$(git describe --tags --abbrev=0 --always || echo "HEAD")
             COMMITS=$(git log --pretty=format:'- %s' $LAST_TAG..HEAD)
 
+            # Replace newlines with the literal string '\n'
+            COMMITS="${COMMITS//'%'/'%25'}"
+            COMMITS="${COMMITS//$'\n'/'%0A'}"
+            COMMITS="${COMMITS//$'\r'/'%0D'}"
+
             echo "::set-output name=commits::$COMMITS"
             echo "Commits desde a última release ($LAST_TAG) até agora na branch main:"
             echo "$COMMITS"
