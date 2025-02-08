@@ -88,9 +88,6 @@ jobs:
       - name: Fetch all tags
         run: git fetch --tags
 
-      - name: Bump version
-        run: yarn version --patch
-
       - name: Extract version
         id: get_version
         run: |
@@ -105,6 +102,9 @@ jobs:
           echo "::set-output name=commits::$COMMITS"
           echo "Commits since last release:"
           echo "$COMMITS"
+
+      - name: Bump version
+        run: yarn version --patch
 
       - name: Push new version
         run: |
