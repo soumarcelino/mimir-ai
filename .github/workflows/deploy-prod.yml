@@ -84,6 +84,9 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+      
+      - name: Fetch all tags
+        run: git fetch --tags
 
       - name: Bump version
         run: yarn version --patch
