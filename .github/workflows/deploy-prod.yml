@@ -101,8 +101,9 @@ jobs:
 
       - name: Create Release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ github.ref_name }}
           release_name: ${{ github.ref_name }}
           body: ${{ steps.commit-list.outputs.commits }}
