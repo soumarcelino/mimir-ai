@@ -88,13 +88,9 @@ jobs:
       - name: Collect commits since last release
         id: commit-list
         run: |
-            # Garante que temos todas as tags e histórico necessário
             git fetch --tags --unshallow || git fetch --tags
-
-            # Obtém a última tag (release) e usa ela como ponto de partida
+            
             LAST_TAG=$(git describe --tags --abbrev=0 --always || echo "HEAD")
-
-            # Lista os commits desde a última release até o estado atual da branch main
             COMMITS=$(git log --pretty=format:'- %s' $LAST_TAG..HEAD)
 
             echo "::set-output name=commits::$COMMITS"
