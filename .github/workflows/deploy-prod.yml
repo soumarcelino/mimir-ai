@@ -45,6 +45,12 @@ jobs:
         with:
           name: nextjs-build
           path: ./out
+      
+      - name: Upload analyze artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: analyze-artifacts
+          path: .next/analyze
 
   deploy:
     name: Deploy to S3
