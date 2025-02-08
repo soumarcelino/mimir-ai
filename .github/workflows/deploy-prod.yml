@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build Next.js Application
+    name: Build mimir-ai
     runs-on: ubuntu-latest
 
     steps:
@@ -69,7 +69,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1"
 
-      # Sincronizar os arquivos com o bucket S3
       - name: Deploy to S3 Bucket
         run: aws s3 sync ./out s3://mimir-ai-site --delete
 
