@@ -16,7 +16,7 @@ export default function Home() {
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <Heart className="size-4" />
             </div>
-            My Matias 😍
+            My Matias
           </a>
           <LoginForm />
         </div>
