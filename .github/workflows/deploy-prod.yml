@@ -85,16 +85,21 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Fetch all tags
-        run: git fetch --tags
-
       - name: Collect commits since last release
         id: commit-list
         run: |
-          COMMITS=$(git log --pretty=format:'- %s' $(git describe --tags --abbrev=0 --always origin/main^)..origin/main)
-          echo "::set-output name=commits::$COMMITS"
-          echo "Commits since last release:"
-          echo "$COMMITS"
+            # Garante que temos todas as tags e histórico necessário
+            git fetch --tags --unshallow || git fetch --tags
+
+            # Obtém a última tag (release) e usa ela como ponto de partida
+            LAST_TAG=$(git describe --tags --abbrev=0 --always || echo "HEAD")
+
+            # Lista os commits desde a última release até o estado atual da branch main
+            COMMITS=$(git log --pretty=format:'- %s' $LAST_TAG..HEAD)
+
+            echo "::set-output name=commits::$COMMITS"
+            echo "Commits desde a última release ($LAST_TAG) até agora na branch main:"
+            echo "$COMMITS"
 
       - name: Bump version
         run: yarn version --patch
