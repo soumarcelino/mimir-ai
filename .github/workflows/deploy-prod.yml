@@ -93,6 +93,12 @@ jobs:
         run: |
           git push origin HEAD --tags
 
+      - name: Extract version
+        id: get_version
+        run: |
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
       - name: Collect commits since last release
         id: commit-list
         run: |
@@ -104,8 +110,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
+          tag_name: ${{ steps.get_version.outputs.new_version }}
+          release_name: ${{ steps.get_version.outputs.new_version }}
           body: ${{ steps.commit-list.outputs.commits }}
           draft: false
           prerelease: false
