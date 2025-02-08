@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build mimir-ai
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout Repository
