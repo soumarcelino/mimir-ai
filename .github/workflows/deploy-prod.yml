@@ -88,13 +88,6 @@ jobs:
       - name: Fetch all tags
         run: git fetch --tags
 
-      - name: Extract version
-        id: get_version
-        run: |
-          NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "New version: $NEW_VERSION"
-
       - name: Collect commits since last release
         id: commit-list
         run: |
@@ -109,6 +102,13 @@ jobs:
       - name: Push new version
         run: |
           git push origin HEAD --tags
+
+      - name: Extract version
+        id: get_version
+        run: |
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
 
       - name: Create Release
         uses: actions/create-release@v1
