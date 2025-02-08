@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Environment, SoftShadows } from "@react-three/drei";
-import { Suspense, useRef, useState, useEffect } from "react";
+import { Suspense, useRef } from "react";
 import * as THREE from "three";
 
 interface CubeProps {
