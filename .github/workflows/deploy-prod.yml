@@ -84,7 +84,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-      
+
       - name: Fetch all tags
         run: git fetch --tags
 
@@ -96,12 +96,15 @@ jobs:
         run: |
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
 
       - name: Collect commits since last release
         id: commit-list
         run: |
-          COMMITS=$(git log --pretty=format:'- %s' $(git describe --tags --abbrev=0 @^)..@)
+          COMMITS=$(git log --pretty=format:'- %s' $(git describe --tags --abbrev=0 --always @^)..@)
           echo "::set-output name=commits::$COMMITS"
+          echo "Commits since last release:"
+          echo "$COMMITS"
 
       - name: Push new version
         run: |
@@ -117,3 +120,11 @@ jobs:
           body: ${{ steps.commit-list.outputs.commits }}
           draft: false
           prerelease: false
+
+      - name: Print Release Details
+        run: |
+          echo "Release created with the following details:"
+          echo "Tag: ${{ steps.get_version.outputs.new_version }}"
+          echo "Release Name: ${{ steps.get_version.outputs.new_version }}"
+          echo "Commits:"
+          echo "${{ steps.commit-list.outputs.commits }}"
