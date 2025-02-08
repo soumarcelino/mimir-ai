@@ -91,7 +91,7 @@ jobs:
       - name: Collect commits since last release
         id: commit-list
         run: |
-          COMMITS=$(git log --pretty=format:'- %s' $(git describe --tags --abbrev=0 --always @^)..@)
+          COMMITS=$(git log --pretty=format:'- %s' $(git describe --tags --abbrev=0 --always origin/main^)..origin/main)
           echo "::set-output name=commits::$COMMITS"
           echo "Commits since last release:"
           echo "$COMMITS"
