@@ -9,9 +9,6 @@ jobs:
   build:
     name: Build mimir-ai
     runs-on: ubuntu-latest
-    env:
-      ANALYZE: true
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
