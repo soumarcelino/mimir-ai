@@ -1,26 +1,67 @@
-"use client";
-import { Heart } from "lucide-react";
-import { LoginForm } from "@/components/login-form";
-import { Background } from "@/components/background";
+'use client'
 
-export default function Home() {
+import { AppSidebar } from "@/components/app-sidebar"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+
+import { useRequireAuth } from '@/hooks/useRequireAuth';
+
+
+export default function Page() {
+  const { user, loading } = useRequireAuth();
+
+  if (loading) {
+    return <>Loading...</>;
+  }
+
+  if(!user && !loading) { // If not logged in, redirect to login page 
+    return <>Redirecting...</>;
+  }
+
   return (
-    <>
-      <Background />
-      <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10 z-10">
-        <div className="flex w-full max-w-sm flex-col gap-6 z-10">
-          <a
-            href=""
-            className="flex items-center gap-2 self-center font-medium"
-          >
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Heart className="size-4" />
-            </div>
-            My Matias 💙
-          </a>
-          <LoginForm />
+    <SidebarProvider>
+      <AppSidebar user={{name: user?.displayName || '', email: user?.email || '', avatar: user?.photoURL || ''}}/>
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">
+                    Building Your Application
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="aspect-video rounded-xl bg-muted/50" />
+            <div className="aspect-video rounded-xl bg-muted/50" />
+            <div className="aspect-video rounded-xl bg-muted/50" />
+          </div>
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
-      </div>
-    </>
-  );
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }
