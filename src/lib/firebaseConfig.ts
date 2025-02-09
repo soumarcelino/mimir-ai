@@ -2,7 +2,7 @@
 
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAnalytics, Analytics } from "firebase/analytics";
-import { getAuth, Auth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, Auth, GoogleAuthProvider, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,10 +14,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-let app: FirebaseApp | undefined;
-let analytics: Analytics | undefined;
-let auth: Auth | undefined;
-let googleProvider: GoogleAuthProvider | undefined;
+let app: FirebaseApp;
+let analytics: Analytics;
+let auth : Auth;
+let googleProvider: GoogleAuthProvider;
 
 if (typeof window !== 'undefined') {
   app = initializeApp(firebaseConfig);
@@ -26,4 +26,8 @@ if (typeof window !== 'undefined') {
   googleProvider = new GoogleAuthProvider();
 }
 
-export { app, analytics, auth, googleProvider };
+const logout = async () => {
+  await signOut(auth);
+};
+
+export { app, analytics, auth, googleProvider,logout };
