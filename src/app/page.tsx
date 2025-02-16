@@ -1,38 +1,62 @@
-'use client'
+"use client";
 
-import { AppSidebar } from "@/components/app-sidebar"
+import { useEffect, useState } from "react";
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/breadcrumb";
+
+import { Separator } from "@/components/ui/separator";
+
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-import { useRequireAuth } from '@/hooks/useRequireAuth';
+import { LoaderCircle } from "lucide-react";
 
+import { getUserData } from "@/lib/firebaseConfig";
+
+import { useRequireAuth } from "@/hooks/useRequireAuth";
+
+import { useToast } from "@/hooks/use-toast";
 
 export default function Page() {
   const { user, loading } = useRequireAuth();
+  const [data, setData] = useState();
+  const { toast } = useToast();
 
-  if (loading) {
-    return <>Loading...</>;
-  }
+  useEffect(() => {
+    getUserData()
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados do usuário:", error);
+      });
+    toast({
+      description: <><LoaderCircle className="animate-spin inline"/> Loading...</>,
+      duration: 1000,
+    });
+  }, [user]);
 
-  if(!user && !loading) { // If not logged in, redirect to login page 
-    return <>Redirecting...</>;
+  if (loading || !user) {
+    return null;
   }
 
   return (
     <SidebarProvider>
-      <AppSidebar user={{name: user?.displayName || '', email: user?.email || '', avatar: user?.photoURL || ''}}/>
+      <AppSidebar
+        user={{
+          name: user?.displayName || "",
+          email: user?.email || "",
+          avatar: user?.photoURL || "",
+        }}
+      />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -41,27 +65,13 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbLink href="#">Todos</BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-        </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

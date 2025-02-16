@@ -2,7 +2,8 @@
 
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAnalytics, Analytics } from "firebase/analytics";
-import { getAuth, Auth, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getFirestore, collection, getDocs, query, where, Firestore } from "firebase/firestore";
+import { getAuth, Auth, onAuthStateChanged, GoogleAuthProvider, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,17 +18,44 @@ const firebaseConfig = {
 let app: FirebaseApp;
 let analytics: Analytics;
 let auth : Auth;
+let db: Firestore;
 let googleProvider: GoogleAuthProvider;
 
 if (typeof window !== 'undefined') {
   app = initializeApp(firebaseConfig);
   analytics = getAnalytics(app);
   auth = getAuth(app);
+  db = getFirestore(app);
   googleProvider = new GoogleAuthProvider();
 }
+
+const getUserData = async () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("__name__", "==", user.uid));
+
+        try {
+          const querySnapshot = await getDocs(q);
+          if (!querySnapshot.empty) {
+            const userData = querySnapshot.docs[0].data();
+            resolve(userData);
+          } else {
+            resolve(null);
+          }
+        } catch (error) {
+          reject(error);
+        }
+      } else {
+        resolve(null);
+      }
+    });
+  });
+};
 
 const logout = async () => {
   await signOut(auth);
 };
 
-export { app, analytics, auth, googleProvider,logout };
+export { app, analytics, auth, db, getUserData, googleProvider,logout };
