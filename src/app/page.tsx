@@ -27,15 +27,21 @@ import { useRequireAuth } from "@/hooks/useRequireAuth";
 
 import { useToast } from "@/hooks/use-toast";
 
+export type Todo = {
+  id: string;
+  title: string;
+  description: string;
+};
+
 export default function Page() {
   const { user, loading } = useRequireAuth();
-  const [data, setData] = useState();
+  const [data, setData] = useState<Todo[] | undefined>();
   const { toast } = useToast();
 
   useEffect(() => {
     getUserTodos()
       .then((data) => {
-        setData(data);
+        setData(data as Todo[]);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados do usuário:", error);
@@ -48,7 +54,7 @@ export default function Page() {
       ),
       duration: 1000,
     });
-  }, [user]);
+  }, [user, toast]);
 
   if (loading || !user || !data) {
     return null;

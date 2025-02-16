@@ -16,7 +16,6 @@ import {
 import { ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { deleteTodo } from "@/lib/firebaseConfig";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -114,7 +113,7 @@ export const columns: ColumnDef<Todo>[] = [
   },
 ];
 
-export function DataTableDemo({ data }) {
+export function DataTableDemo({ data }: { data: Todo[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
