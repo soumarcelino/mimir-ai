@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { Separator } from "@/components/ui/separator";
+import { DataTableDemo } from "@/components/todo-table";
+import { DialogDemo } from "@/components/todo-create";
 
 import {
   SidebarInset,
@@ -19,7 +21,7 @@ import {
 
 import { LoaderCircle } from "lucide-react";
 
-import { getUserData } from "@/lib/firebaseConfig";
+import { getUserTodos } from "@/lib/firebaseConfig";
 
 import { useRequireAuth } from "@/hooks/useRequireAuth";
 
@@ -31,7 +33,7 @@ export default function Page() {
   const { toast } = useToast();
 
   useEffect(() => {
-    getUserData()
+    getUserTodos()
       .then((data) => {
         setData(data);
       })
@@ -39,12 +41,16 @@ export default function Page() {
         console.error("Erro ao buscar dados do usuário:", error);
       });
     toast({
-      description: <><LoaderCircle className="animate-spin inline"/> Loading...</>,
+      description: (
+        <>
+          <LoaderCircle className="animate-spin inline" /> Loading...
+        </>
+      ),
       duration: 1000,
     });
   }, [user]);
 
-  if (loading || !user) {
+  if (loading || !user || !data) {
     return null;
   }
 
@@ -71,6 +77,10 @@ export default function Page() {
             </Breadcrumb>
           </div>
         </header>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <DialogDemo />
+          <DataTableDemo data={data} />
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
