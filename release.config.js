@@ -3,6 +3,14 @@ module.exports = {
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
+    [
+      "semantic-release-slack-bot",
+      {
+        notifyOnSuccess: true,
+        notifyOnFail: false,
+        slackWebhook: process.env.SLACK_WEBHOOK_RELEASE,
+      },
+    ],
     "@semantic-release/changelog",
     [
       "@semantic-release/exec",
