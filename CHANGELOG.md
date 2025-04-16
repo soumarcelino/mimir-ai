@@ -1,3 +1,10 @@
+## [0.11.1](https://github.com/soumarcelino/mimir-ai/compare/v0.11.0...v0.11.1) (2025-04-16)
+
+
+### Bug Fixes
+
+* update Slack notification payload to simplify message structure ([b98e57e](https://github.com/soumarcelino/mimir-ai/commit/b98e57ef71fb85c34e240c104a1b6c530f0615c0))
+
 # [0.11.0](https://github.com/soumarcelino/mimir-ai/compare/v0.10.0...v0.11.0) (2025-04-16)
 
 
