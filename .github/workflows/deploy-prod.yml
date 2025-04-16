@@ -45,6 +45,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update Package Version
+        run: yarn release:update-package-only
+
       - name: Build Application
         run: yarn build
 
