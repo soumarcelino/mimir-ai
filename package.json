@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "release:update-package-only": "yarn semantic-release  --dry-run",
     "release": "yarn semantic-release"
   },
   "dependencies": {
