@@ -140,8 +140,9 @@ jobs:
         with:
           webhook-type: 'incoming-webhook'
           payload: |
-            {
-              "text": ":tada: *New Release Published!*",
-              "attachments": "foi"
+              {
+                "text": ":tada: *New Release Published!*",
+                "attachments": []
+              }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
