@@ -1,3 +1,11 @@
+# [0.4.0](https://github.com/soumarcelino/mimir-ai/compare/v0.3.0...v0.4.0) (2025-04-16)
+
+
+### Features
+
+* remove version display component from the application ([ca07477](https://github.com/soumarcelino/mimir-ai/commit/ca07477a6a1f6a2aae275377ac353cec9da8f67e))
+* update author display text in login page ([73252d9](https://github.com/soumarcelino/mimir-ai/commit/73252d95599e146e2192514bc17c00f7c981da62))
+
 # [0.3.0](https://github.com/soumarcelino/mimir-ai/compare/v0.2.0...v0.3.0) (2025-04-16)
 
 
