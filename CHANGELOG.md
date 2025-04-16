@@ -1,3 +1,10 @@
+# [0.10.0](https://github.com/soumarcelino/mimir-ai/compare/v0.9.0...v0.10.0) (2025-04-16)
+
+
+### Features
+
+* add Slack notification step to deployment workflow and remove separate release notification workflow ([07ef1c2](https://github.com/soumarcelino/mimir-ai/commit/07ef1c26c10095b76a317e98408ceb86d88a350b))
+
 # [0.9.0](https://github.com/soumarcelino/mimir-ai/compare/v0.8.6...v0.9.0) (2025-04-16)
 
 
