@@ -142,26 +142,6 @@ jobs:
           payload: |
             {
               "text": ":tada: *New Release Published!*",
-              "attachments": [
-                {
-                  "color": "#36a64f",
-                  "title": "Release ${{ env.NEXT_RELEASE_VERSION }}",
-                  "title_link": "https://github.com/${{ github.repository }}/releases/tag/${{ env.NEXT_RELEASE_VERSION }}",
-                  "fields": [
-                    {
-                      "title": "Author",
-                      "value": "${{ github.actor }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Tag",
-                      "value": "${{ env.NEXT_RELEASE_VERSION }}",
-                      "short": true
-                    }
-                  ],
-                  "text": "${{ env.RELEASE_NOTES }}"
-                }
-              ]
-            }
+              "attachments": "foi"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
