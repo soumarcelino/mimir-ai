@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/soumarcelino/mimir-ai/compare/v0.4.0...v0.5.0) (2025-04-16)
+
+
+### Features
+
+* add slack ([#2](https://github.com/soumarcelino/mimir-ai/issues/2)) ([4da9352](https://github.com/soumarcelino/mimir-ai/commit/4da93522b09184da63b6911ff3ca6b0eaeef8cc5))
+* AQUI VAI O TEXTO QUE VAI FICAR NO CHANGELOG E NA RELEASE ([#3](https://github.com/soumarcelino/mimir-ai/issues/3)) ([788a7eb](https://github.com/soumarcelino/mimir-ai/commit/788a7eb229856fb6b815ac23ce286c91080a2b54))
+* minha feature novinha ([#4](https://github.com/soumarcelino/mimir-ai/issues/4)) ([a11ec13](https://github.com/soumarcelino/mimir-ai/commit/a11ec136e57650c1ef73875609fa145344081987))
+
 # [0.4.0](https://github.com/soumarcelino/mimir-ai/compare/v0.3.0...v0.4.0) (2025-04-16)
 
 
