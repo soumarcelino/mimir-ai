@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/soumarcelino/mimir-ai/compare/v0.2.0...v0.3.0) (2025-04-16)
+
+
+### Features
+
+* consolidate release configuration by removing outdated files and reorganizing plugins ([99beab5](https://github.com/soumarcelino/mimir-ai/commit/99beab51f28ff4f26ae8d9e4e77f28b727a44d81))
+
 # [0.2.0](https://github.com/soumarcelino/mimir-ai/compare/v0.1.17...v0.2.0) (2025-04-16)
 
 
