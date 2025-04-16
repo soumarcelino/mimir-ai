@@ -19,6 +19,7 @@ jobs:
       NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }}
       BUNDLE_ANALYZE: ${{ vars.BUNDLE_ANALYZE }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SLACK_WEBHOOK_RELEASE: ${{ secrets.SLACK_WEBHOOK }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -57,6 +58,7 @@ jobs:
       - name: Bump Next Version
         if: ${{ env.NEXT_RELEASE_VERSION != '' }}
         run: yarn version --new-version $NEXT_RELEASE_VERSION --no-git-tag-version
+
       - name: Build Application
         run: yarn build
 
