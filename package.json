@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "release:update-package-only": "yarn semantic-release --extends ./release.config.update-package-only.js",
-    "release": "yarn semantic-release --config ./release.config.publish.js"
+    "release:update-package-only": "yarn semantic-release  --dry-run",
+    "release": "yarn semantic-release"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",

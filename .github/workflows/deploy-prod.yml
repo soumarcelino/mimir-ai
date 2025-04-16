@@ -49,8 +49,13 @@ jobs:
       - name: Update Package Version
         run: |
           yarn release:update-package-only
-          echo "Determined Version $(cat .VERSION)"
+      - name: Show Next Release Version
+        run: |
+          echo "Next Release Version: $NEXT_RELEASE_VERSION"
 
+      - name: Bump Version
+        if: ${{ env.NEXT_RELEASE_VERSION != '' }}
+        run: yarn version --new-version $NEXT_RELEASE_VERSION --no-git-tag-version
       - name: Build Application
         run: yarn build
 
