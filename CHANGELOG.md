@@ -1,3 +1,10 @@
+## [0.8.5](https://github.com/soumarcelino/mimir-ai/compare/v0.8.4...v0.8.5) (2025-04-16)
+
+
+### Bug Fixes
+
+* update semantic-release-slack-bot dependency to use custom repository ([c9b0176](https://github.com/soumarcelino/mimir-ai/commit/c9b0176de6a7492824c18d0afcb24faaea60f462))
+
 ## [0.8.4](https://github.com/soumarcelino/mimir-ai/compare/v0.8.3...v0.8.4) (2025-04-16)
 
 
