@@ -9,6 +9,7 @@ module.exports = {
       {
         notifyOnSuccess: true,
         notifyOnFail: false,
+        slackWebhook: process.env.SLACK_WEBHOOK,
       },
     ],
     "@semantic-release/changelog",
