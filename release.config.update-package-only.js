@@ -5,7 +5,7 @@ module.exports = {
     [
       "@semantic-release/exec",
       {
-        updatePackageOnly:
+        verifyReleaseCmd:
           "yarn version --new-version ${nextRelease.version} --no-git-tag-version",
       },
     ],
