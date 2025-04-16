@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/soumarcelino/mimir-ai/compare/v0.7.0...v0.8.0) (2025-04-16)
+
+
+### Features
+
+* update text release ([f0f16a9](https://github.com/soumarcelino/mimir-ai/commit/f0f16a9be5a0828966cb370c9bb73d80c7fb87d5))
+
 # [0.7.0](https://github.com/soumarcelino/mimir-ai/compare/v0.6.0...v0.7.0) (2025-04-16)
 
 
