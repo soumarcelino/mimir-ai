@@ -8,7 +8,7 @@ module.exports = {
       "semantic-release-slack-bot",
       {
         notifyOnSuccess: true,
-        notifyOnFail: false,
+        notifyOnFail: true,
         slackWebhook: process.env.SLACK_WEBHOOK,
       },
     ],
