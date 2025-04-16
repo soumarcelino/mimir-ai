@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/soumarcelino/mimir-ai/compare/v0.8.6...v0.9.0) (2025-04-16)
+
+
+### Features
+
+* add GitHub Actions workflow for Slack notifications on release ([50977f6](https://github.com/soumarcelino/mimir-ai/commit/50977f63fe2195c8635fba47f70cfef14fa9c735))
+
 ## [0.8.6](https://github.com/soumarcelino/mimir-ai/compare/v0.8.5...v0.8.6) (2025-04-16)
 
 
