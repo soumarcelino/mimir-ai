@@ -48,6 +48,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Analyze Release
+        if: false
         run: |
           yarn release --dry-run
 
@@ -60,6 +61,7 @@ jobs:
         run: yarn version --new-version $NEXT_RELEASE_VERSION --no-git-tag-version
 
       - name: Build Application
+        if: false
         run: yarn build
 
       - name: Upload Build Artifact
@@ -98,6 +100,7 @@ jobs:
           aws-region: "us-east-1"
 
       - name: Deploy to S3 Bucket
+        if: false
         run: aws s3 sync ./out s3://mimir-ai-site --delete
 
   release:
@@ -142,7 +145,26 @@ jobs:
           payload: |
               {
                 "text": ":tada: *New Release Published!*",
-                "attachments": []
+                "attachments": [
+                  {
+                    "color": "#36a64f",
+                    "title": "Release ${{ env.NEXT_RELEASE_VERSION }}",
+                    "title_link": "https://github.com/${{ github.repository }}/releases/tag/${{ env.NEXT_RELEASE_VERSION }}",
+                    "fields": [
+                      {
+                        "title": "Author",
+                        "value": "${{ github.actor }}",
+                        "short": true
+                      },
+                      {
+                        "title": "Tag",
+                        "value": "${{ env.NEXT_RELEASE_VERSION }}",
+                        "short": true
+                      }
+                    ],
+                    "text": "${{ env.RELEASE_NOTES }}"
+                  }
+                ]
               }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
