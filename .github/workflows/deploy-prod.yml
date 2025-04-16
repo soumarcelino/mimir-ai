@@ -133,3 +133,32 @@ jobs:
       - name: Semantic Release
         run: |
           yarn release
+
+      - name: Notify Slack
+        if: success()
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "text": ":tada: *New Release Published!*",
+              "attachments": [
+                {
+                  "color": "#36a64f",
+                  "title": "Release ${{ env.NEXT_RELEASE_VERSION }}",
+                  "fields": [
+                    {
+                      "title": "Author",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Tag",
+                      "value": "${{ env.NEXT_RELEASE_VERSION }}",
+                      "short": true
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
