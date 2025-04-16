@@ -1,3 +1,10 @@
+## [0.8.2](https://github.com/soumarcelino/mimir-ai/compare/v0.8.1...v0.8.2) (2025-04-16)
+
+
+### Bug Fixes
+
+* correct capitalization in page title ([1d41baf](https://github.com/soumarcelino/mimir-ai/commit/1d41bafb94cd4d42c80251d85b9615da847b3d7b))
+
 ## [0.8.1](https://github.com/soumarcelino/mimir-ai/compare/v0.8.0...v0.8.1) (2025-04-16)
 
 
