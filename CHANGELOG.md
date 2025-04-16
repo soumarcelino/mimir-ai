@@ -1,3 +1,10 @@
+## [0.8.4](https://github.com/soumarcelino/mimir-ai/compare/v0.8.3...v0.8.4) (2025-04-16)
+
+
+### Bug Fixes
+
+* enable failure notifications for Slack bot ([0b03088](https://github.com/soumarcelino/mimir-ai/commit/0b030886879d67d22101165dbb002aa58632fbfe))
+
 ## [0.8.3](https://github.com/soumarcelino/mimir-ai/compare/v0.8.2...v0.8.3) (2025-04-16)
 
 
