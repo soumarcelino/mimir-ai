@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "release:update-package-only": "yarn semantic-release --extends ./release.update-package-only.js ",
+    "release:update-package-only": "yarn semantic-release --config ./release.update-package-only.js ",
     "release": "yarn semantic-release"
   },
   "dependencies": {
