@@ -1,3 +1,11 @@
+## [0.11.3](https://github.com/soumarcelino/mimir-ai/compare/v0.11.2...v0.11.3) (2025-04-16)
+
+
+### Bug Fixes
+
+* disable artifact download step in production deployment workflow ([0a73c52](https://github.com/soumarcelino/mimir-ai/commit/0a73c52ab7a50a2de574aa3473cf3c5010d8cfed))
+* update Slack notification payload to include release details and attachments ([cae1705](https://github.com/soumarcelino/mimir-ai/commit/cae1705625288dc84441e7e0c087f2809f89f90d))
+
 ## [0.11.2](https://github.com/soumarcelino/mimir-ai/compare/v0.11.1...v0.11.2) (2025-04-16)
 
 
