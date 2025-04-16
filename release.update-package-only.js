@@ -1,12 +1,12 @@
 module.exports = {
-  branches: ['master', 'feat/add-semantic-release'],
+  branches: ["main"],
   plugins: [
-    '@semantic-release/commit-analyzer',
+    "@semantic-release/commit-analyzer",
     [
-      '@semantic-release/exec',
+      "@semantic-release/exec",
       {
         updatePackageOnly:
-          'yarn version --new-version ${nextRelease.version} --no-git-tag-version',
+          "yarn version --new-version ${nextRelease.version} --no-git-tag-version",
       },
     ],
   ],
