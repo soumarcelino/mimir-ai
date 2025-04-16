@@ -1,3 +1,10 @@
+## [0.11.2](https://github.com/soumarcelino/mimir-ai/compare/v0.11.1...v0.11.2) (2025-04-16)
+
+
+### Bug Fixes
+
+* update Slack notification payload to use an empty array for attachments ([74a80a7](https://github.com/soumarcelino/mimir-ai/commit/74a80a7e33ac0209ce447b78b143fde118d39e10))
+
 ## [0.11.1](https://github.com/soumarcelino/mimir-ai/compare/v0.11.0...v0.11.1) (2025-04-16)
 
 
