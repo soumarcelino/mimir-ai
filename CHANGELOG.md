@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/soumarcelino/mimir-ai/compare/v0.6.0...v0.7.0) (2025-04-16)
+
+
+### Features
+
+* add @semantic-release/npm plugin ([8ebd868](https://github.com/soumarcelino/mimir-ai/commit/8ebd86844c8008fea90359efc3b584adc815ce1c))
+
 # [0.6.0](https://github.com/soumarcelino/mimir-ai/compare/v0.5.0...v0.6.0) (2025-04-16)
 
 
