@@ -47,7 +47,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Package Version
-        run: yarn release:update-package-only
+        run: |
+          yarn release:update-package-only
+          echo "Determined Version $(cat .VERSION)"
 
       - name: Build Application
         run: yarn build
