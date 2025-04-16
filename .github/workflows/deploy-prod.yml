@@ -138,6 +138,7 @@ jobs:
         if: success()
         uses: slackapi/slack-github-action@v2.0.0
         with:
+          webhook-type: 'incoming-webhook'
           payload: |
             {
               "text": ":tada: *New Release Published!*",
@@ -145,6 +146,7 @@ jobs:
                 {
                   "color": "#36a64f",
                   "title": "Release ${{ env.NEXT_RELEASE_VERSION }}",
+                  "title_link": "https://github.com/${{ github.repository }}/releases/tag/${{ env.NEXT_RELEASE_VERSION }}",
                   "fields": [
                     {
                       "title": "Author",
@@ -156,7 +158,8 @@ jobs:
                       "value": "${{ env.NEXT_RELEASE_VERSION }}",
                       "short": true
                     }
-                  ]
+                  ],
+                  "text": "${{ env.RELEASE_NOTES }}"
                 }
               ]
             }
