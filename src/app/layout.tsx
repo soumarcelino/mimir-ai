@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <title>Mimir Ai 🤖</title>
+        <title>Mimir ai 🤖</title>
       </head>
       <body className="antialiased">
         <AuthProvider>
