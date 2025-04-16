@@ -123,27 +123,12 @@ jobs:
       - name: Bump version
         run: yarn version --patch
 
-      - name: Push new version
-        run: |
-          git push origin HEAD --tags
-
       - name: Extract version
         id: get_version
         run: |
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "New version: $NEW_VERSION"
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.get_version.outputs.new_version }}
-          release_name: ${{ steps.get_version.outputs.new_version }}
-          body: ${{ steps.commit-list.outputs.commits }}
-          draft: false
-          prerelease: false
 
       - name: Print Release Details
         run: |
