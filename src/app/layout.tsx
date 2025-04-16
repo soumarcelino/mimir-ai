@@ -1,6 +1,6 @@
-import { AuthProvider } from '@/context/AuthContext';
-import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
+import { AuthProvider } from "@/context/AuthContext";
+import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({
   children,
@@ -10,12 +10,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <title>mimir ai 🤖</title>
+        <title>Mimir ai 🤖</title>
       </head>
       <body className="antialiased">
-         <AuthProvider>
+        <AuthProvider>
           {children}
-           <Toaster />
+          <Toaster />
         </AuthProvider>
       </body>
     </html>
