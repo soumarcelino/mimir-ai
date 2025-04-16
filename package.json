@@ -60,7 +60,7 @@
     "lint-staged": "^15.4.3",
     "postcss": "^8",
     "semantic-release": "^24.2.3",
-    "semantic-release-slack-bot": "soumarcelino/semantic-release-slack-bot",
+    "semantic-release-slack-bot": "github:soumarcelino/semantic-release-slack-bot",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

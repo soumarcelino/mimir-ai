@@ -6515,7 +6515,7 @@ scheduler@^0.25.0:
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.25.0.tgz#336cd9768e8cceebf52d3c80e3dcf5de23e7e015"
   integrity sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==
 
-semantic-release-slack-bot@soumarcelino/semantic-release-slack-bot:
+"semantic-release-slack-bot@github:soumarcelino/semantic-release-slack-bot":
   version "0.0.0-semantically-released"
   resolved "https://codeload.github.com/soumarcelino/semantic-release-slack-bot/tar.gz/913f8e31d0e9aedb5c1afa14a852c8ca8b23567a"
   dependencies:
