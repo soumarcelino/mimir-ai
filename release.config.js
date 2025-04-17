@@ -1,10 +1,42 @@
+const emojiMap = {
+  feat: ":sparkles:", // ✨
+  fix: ":bug:", // 🐛
+  docs: ":memo:", // 📝
+  style: ":nail_care:", // 💅
+  refactor: ":recycle:", // ♻️
+  perf: ":zap:", // ⚡
+  test: ":white_check_mark:", // ✅
+  chore: ":wrench:", // 🔧
+};
+
+// Emoji padrão para tipos não mapeados
+const defaultEmoji = ":label:"; // 🏷️
+
 module.exports = {
   branches: ["main"],
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/npm",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        parserOpts: {
+          transform: (commit) => {
+            const emoji = emojiMap[commit.type] || defaultEmoji;
+            commit.type = emoji;
+            return commit;
+          },
+        },
+        writerOpts: {
+          commitPartial:
+            "{{type}} {{#if scope}}(`{{scope}}`): {{/if}}{{subject}}",
+          headerPartial: "",
+          groupBy: "type",
+          commitGroupsSort: "title",
+          commitsSort: ["scope", "subject"],
+        },
+      },
+    ],
     [
       "@semantic-release/exec",
       {
