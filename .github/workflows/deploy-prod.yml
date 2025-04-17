@@ -153,7 +153,6 @@ jobs:
           echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-
       - name: Notify Slack
         if: success()
         uses: slackapi/slack-github-action@v2.0.0
