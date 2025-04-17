@@ -9,7 +9,6 @@ const emojiMap = {
   chore: ":wrench:", // 🔧
 };
 
-// Emoji padrão para tipos não mapeados
 const defaultEmoji = ":label:"; // 🏷️
 
 module.exports = {
@@ -23,17 +22,30 @@ module.exports = {
         parserOpts: {
           transform: (commit) => {
             const emoji = emojiMap[commit.type] || defaultEmoji;
-            commit.type = emoji;
+            commit.type = `${emoji} ${commit.type}`;
             return commit;
           },
         },
         writerOpts: {
+          groupBy: "type",
+          commitsSort: ["scope", "subject"],
+          commitGroupsSort: "title",
+          headerPartial: "",
           commitPartial:
             "{{type}} {{#if scope}}(`{{scope}}`): {{/if}}{{subject}}",
-          headerPartial: "",
-          groupBy: "type",
-          commitGroupsSort: "title",
-          commitsSort: ["scope", "subject"],
+          mainTemplate: `
+            ## {{version}} ({{date}})
+
+            {{#each commitGroups}}
+            ### {{title}}
+
+            {{#each commits}}
+            - {{> commit}}
+            {{/each}}
+
+            {{/each}}`,
+          commitGroupsTemplate:
+            "{{#each commitGroups}}\n### {{title}}\n{{/each}}",
         },
       },
     ],
