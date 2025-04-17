@@ -25,7 +25,7 @@ module.exports = {
             };
           },
           headerPartial: "",
-          commitPartial: "- {{subject}}\n",
+          commitPartial: "{{subject}}\n",
           finalizeContext(context) {
             context.commitGroups = [
               {
