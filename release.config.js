@@ -50,7 +50,8 @@ module.exports = {
       {
         verifyReleaseCmd:
           'echo "NEXT_RELEASE_VERSION=${nextRelease.version}" >> $GITHUB_ENV',
-        successCmd: 'echo "RELEASE_BODY=${nextRelease.notes}" >> $GITHUB_ENV',
+        successCmd:
+          "echo \"RELEASE_BODY=<%= Buffer.from(nextRelease.notes, 'utf8').toString('base64') %>\" >> $GITHUB_ENV",
       },
     ],
   ],
