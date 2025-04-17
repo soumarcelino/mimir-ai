@@ -52,20 +52,11 @@ module.exports = {
         },
       },
     ],
-
-    // 3. Escreve/atualiza CHANGELOG.md com as notas acima
-    [
-      "@semantic-release/changelog",
-      {
-        changelogTitle: "# Changelog\n",
-      },
-    ],
-
     // 4. Comita arquivos alterados
     [
       "@semantic-release/git",
       {
-        assets: ["CHANGELOG.md", "package.json", "yarn.lock"],
+        assets: ["package.json"],
         message: "chore(release): ${nextRelease.version} [skip ci]",
       },
     ],
