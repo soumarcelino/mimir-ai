@@ -16,7 +16,6 @@ module.exports = {
     [
       "@semantic-release/release-notes-generator",
       {
-        groupBy: false,
         writerOpts: {
           transform(commit) {
             const emoji = emojiMap[commit.type] || "🏷️";
@@ -28,23 +27,13 @@ module.exports = {
           headerPartial: "",
           commitPartial: "- {{subject}}\n",
           finalizeContext(context) {
-            const formatter = new Intl.DateTimeFormat("pt-BR", {
-              timeZone: "America/Sao_Paulo",
-              dateStyle: "short",
-              timeStyle: "short",
-            });
-
-            context.releaseDateBr = formatter.format(new Date(context.date));
+            context.commitGroups = [
+              {
+                commits: context.commitGroups.flatMap((g) => g.commits),
+              },
+            ];
             return context;
           },
-          mainTemplate: `
-          ## {{version}} ({{releaseDateBr}})
-
-          {{#each commits}}
-          {{> commit}}
-          {{/each}}
-
-          `.trim(),
         },
       },
     ],
