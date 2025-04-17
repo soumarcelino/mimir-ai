@@ -42,8 +42,6 @@ module.exports = {
       {
         verifyReleaseCmd:
           'echo "NEXT_RELEASE_VERSION=${nextRelease.version}" >> $GITHUB_ENV',
-        generateNotesCmd:
-          'echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV && echo "${nextRelease.notes}" >> $GITHUB_ENV && echo "EOF" >> $GITHUB_ENV',
       },
     ],
     [
