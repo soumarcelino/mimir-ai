@@ -154,7 +154,7 @@ jobs:
           webhook-type: 'incoming-webhook'
           payload: |
               {
-                "text": "feat: nova página",
+                "text": "${{ env.RELEASE_BODY }}",
                 "version":  "${{ env.NEXT_RELEASE_VERSION }}",
                 "user": "${{ github.actor }}",
               }

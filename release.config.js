@@ -45,5 +45,14 @@ module.exports = {
       },
     ],
     "@semantic-release/github",
+    [
+      "@semantic-release/exec",
+      {
+        verifyReleaseCmd:
+          'echo "NEXT_RELEASE_VERSION=${nextRelease.version}" >> $GITHUB_ENV',
+        successCmd:
+          "echo \"RELEASE_BODY=<%= nextRelease.notes.replace(/\\r?\\n/g, '\\\\n').replace(/\"/g, '\\\\\\\"') %>\" >> $GITHUB_ENV",
+      },
+    ],
   ],
 };
