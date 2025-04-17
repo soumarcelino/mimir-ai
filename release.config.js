@@ -38,14 +38,6 @@ module.exports = {
       },
     ],
     [
-      "@semantic-release/git",
-      {
-        assets: ["package.json"],
-        message: "chore(release): ${nextRelease.version} [skip ci]",
-      },
-    ],
-    "@semantic-release/github",
-    [
       "@semantic-release/exec",
       {
         verifyReleaseCmd:
@@ -54,5 +46,13 @@ module.exports = {
           "echo \"RELEASE_BODY=<%= Buffer.from(nextRelease.notes, 'utf8').toString('base64') %>\" >> $GITHUB_ENV",
       },
     ],
+    [
+      "@semantic-release/git",
+      {
+        assets: ["package.json"],
+        message: "chore(release): ${nextRelease.version} [skip ci]",
+      },
+    ],
+    "@semantic-release/github",
   ],
 };
