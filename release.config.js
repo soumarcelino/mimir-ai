@@ -13,14 +13,13 @@ module.exports = {
   branches: ["main"],
 
   plugins: [
-    // 1. Classifica os commits (mantém Conventional Commits)
-    ["@semantic-release/commit-analyzer", { preset: "conventionalcommits" }],
+    // 1. Classifica os commits
+    "@semantic-release/commit-analyzer",
 
     // 2. Gera as notas de release com nosso writerOpts
     [
       "@semantic-release/release-notes-generator",
       {
-        preset: "conventionalcommits",
         writerOpts: {
           /**
            *  • Adiciona o emoji antes do subject
