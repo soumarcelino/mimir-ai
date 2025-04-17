@@ -1,3 +1,4 @@
+// .releaserc.js
 const emojiMap = {
   feat: "✨", // :sparkles:
   fix: "🐛", // :bug:
@@ -8,55 +9,68 @@ const emojiMap = {
   test: "✅", // :white_check_mark:
   chore: "🔧", // :wrench:
 };
-
-const defaultEmoji = "🏷️"; // :label:
-
 module.exports = {
   branches: ["main"],
+
   plugins: [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/npm",
+    // 1. Classifica os commits (mantém Conventional Commits)
+    ["@semantic-release/commit-analyzer", { preset: "conventionalcommits" }],
+
+    // 2. Gera as notas de release com nosso writerOpts
     [
       "@semantic-release/release-notes-generator",
       {
-        parserOpts: {
-          transform: (commit) => {
-            const emoji = emojiMap[commit.type] || defaultEmoji;
-            commit.emoji = emoji;
+        preset: "conventionalcommits",
+        writerOpts: {
+          /**
+           *  • Adiciona o emoji antes do subject
+           *  • Mantém o body/descriptions completo se existir
+           */
+          transform(commit /*, context*/) {
+            const emoji = emojiMap[commit.type] || "🏷️";
+            commit.subject = `${emoji} ${commit.subject}`;
             return commit;
           },
+          /**
+           *  • Tira os títulos “### Bug Fixes”, “### Features”…
+           *    Queremos só a lista limpa.
+           */
+          headerPartial: "", // remove o cabeçalho duplicado
+          commitPartial: "- {{subject}}", // bullet simples
+          /**
+           *  • Junta todos os commits num único grupo,
+           *    já que não vamos mostrar seções por tipo.
+           */
+          finalizeContext(context) {
+            context.commitGroups = [
+              {
+                commits: context.commitGroups.flatMap((g) => g.commits),
+              },
+            ];
+            return context;
+          },
         },
-        writerOpts: {
-          commitsSort: ["scope", "subject"],
-          groupBy: null,
-          commitGroupsSort: null,
-          headerPartial: "",
-          commitPartial:
-            "- {{emoji}} {{#if scope}}(`{{scope}}`): {{/if}}{{subject}}",
-          mainTemplate: `
-## {{version}} ({{date}})
+      },
+    ],
 
-{{#each commits}}
-{{> commit}}
-{{/each}}
-          `.trim(),
-        },
-      },
-    ],
+    // 3. Escreve/atualiza CHANGELOG.md com as notas acima
     [
-      "@semantic-release/exec",
+      "@semantic-release/changelog",
       {
-        verifyReleaseCmd:
-          'echo "NEXT_RELEASE_VERSION=${nextRelease.version}" >> $GITHUB_ENV',
+        changelogTitle: "# Changelog\n",
       },
     ],
+
+    // 4. Comita arquivos alterados
     [
       "@semantic-release/git",
       {
-        assets: ["package.json", "yarn.lock", "CHANGELOG.md"],
+        assets: ["CHANGELOG.md", "package.json", "yarn.lock"],
         message: "chore(release): ${nextRelease.version} [skip ci]",
       },
     ],
+
+    // 5. Publica tag e release no GitHub
     "@semantic-release/github",
   ],
 };
