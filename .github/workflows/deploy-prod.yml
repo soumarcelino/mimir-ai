@@ -150,7 +150,7 @@ jobs:
       - name: Decode Release Body for Slack
         run: |
           echo "SLACK_PAYLOAD<<EOF" >> $GITHUB_ENV
-          echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode)" >> $GITHUB_ENV
+          echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
 
