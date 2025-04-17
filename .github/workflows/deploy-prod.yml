@@ -147,9 +147,12 @@ jobs:
         run: |
           yarn release
 
-      - name: Prepare Slack Message
+      - name: Decode Release Body for Slack
         run: |
-          echo "SLACK_PAYLOAD=$(echo '${{ env.RELEASE_BODY }}' | base64 --decode)" >> $GITHUB_ENV
+          echo "SLACK_PAYLOAD<<EOF" >> $GITHUB_ENV
+          echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode)" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
 
       - name: Notify Slack
         if: success()
