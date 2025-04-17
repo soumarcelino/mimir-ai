@@ -1,15 +1,15 @@
 const emojiMap = {
-  feat: ":sparkles:", // ✨
-  fix: ":bug:", // 🐛
-  docs: ":memo:", // 📝
-  style: ":nail_care:", // 💅
-  refactor: ":recycle:", // ♻️
-  perf: ":zap:", // ⚡
-  test: ":white_check_mark:", // ✅
-  chore: ":wrench:", // 🔧
+  feat: "✨", // :sparkles:
+  fix: "🐛", // :bug:
+  docs: "📝", // :memo:
+  style: "💅", // :nail_care:
+  refactor: "♻️", // :recycle:
+  perf: "⚡", // :zap:
+  test: "✅", // :white_check_mark:
+  chore: "🔧", // :wrench:
 };
 
-const defaultEmoji = ":label:"; // 🏷️
+const defaultEmoji = "🏷️"; // :label:
 
 module.exports = {
   branches: ["main"],
@@ -22,30 +22,24 @@ module.exports = {
         parserOpts: {
           transform: (commit) => {
             const emoji = emojiMap[commit.type] || defaultEmoji;
-            commit.type = `${emoji} ${commit.type}`;
+            commit.emoji = emoji;
             return commit;
           },
         },
         writerOpts: {
-          groupBy: "type",
           commitsSort: ["scope", "subject"],
-          commitGroupsSort: "title",
+          groupBy: null,
+          commitGroupsSort: null,
           headerPartial: "",
           commitPartial:
-            "{{type}} {{#if scope}}(`{{scope}}`): {{/if}}{{subject}}",
+            "- {{emoji}} {{#if scope}}(`{{scope}}`): {{/if}}{{subject}}",
           mainTemplate: `
-            ## {{version}} ({{date}})
+## {{version}} ({{date}})
 
-            {{#each commitGroups}}
-            ### {{title}}
-
-            {{#each commits}}
-            - {{> commit}}
-            {{/each}}
-
-            {{/each}}`,
-          commitGroupsTemplate:
-            "{{#each commitGroups}}\n### {{title}}\n{{/each}}",
+{{#each commits}}
+{{> commit}}
+{{/each}}
+          `.trim(),
         },
       },
     ],
