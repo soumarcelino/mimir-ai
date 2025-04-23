@@ -108,6 +108,6 @@ jobs:
     name: Tagging Version
     if: "!contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.head_commit.message, '[skip ci]')"
     needs: deploy
-    uses: ./.github/workflows/release.yaml
+    uses: ./.github/workflows/release.yml
 
 
