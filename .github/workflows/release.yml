@@ -1,0 +1,61 @@
+name: Release
+on:
+  workflow_call:
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Setup yarn
+        run: npm install -g yarn@^1
+
+      - name: Setup Dependencies cache
+        id: cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Release Version
+        id: release-version
+        run: |
+          yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Decode Release Body for Slack
+        run: |
+          echo "SLACK_PAYLOAD<<EOF" >> $GITHUB_ENV
+          echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
+        with:
+          webhook-type: 'incoming-webhook'
+          payload: |
+              {
+                "text": "${{ env.SLACK_PAYLOAD }}",
+                "version":  "${{ env.NEXT_RELEASE_VERSION }}",
+                "user": "${{ github.actor }}",
+              }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
