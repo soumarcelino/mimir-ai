@@ -104,65 +104,10 @@ jobs:
         if: false
         run: aws s3 sync ./out s3://mimir-ai-site --delete
 
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
+  tagging-version:
+    name: Tagging Version
+    if: "!contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.head_commit.message, '[skip ci]')"
     needs: deploy
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    uses: ./.github/workflows/release.yaml
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@soumarcelino"
-          
-      - name: Configure Git
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
 
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            .next/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install Dependencies
-        run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Semantic Release
-        run: |
-          yarn release
-
-      - name: Decode Release Body for Slack
-        run: |
-          echo "SLACK_PAYLOAD<<EOF" >> $GITHUB_ENV
-          echo "$(echo '${{ env.RELEASE_BODY }}' | base64 --decode | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Notify Slack
-        if: success()
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-          webhook-type: 'incoming-webhook'
-          payload: |
-              {
-                "text": "${{ env.SLACK_PAYLOAD }}",
-                "version":  "${{ env.NEXT_RELEASE_VERSION }}",
-                "user": "${{ github.actor }}",
-              }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
