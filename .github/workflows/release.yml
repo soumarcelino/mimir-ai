@@ -2,6 +2,10 @@ name: Release
 on:
   workflow_call:
 
+env:
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   tag-version:
     runs-on: ubuntu-latest
@@ -30,6 +34,11 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           cache: yarn
+
+      - name: Configure npm token
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > .npmrc
+          echo "@stone-payments:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
